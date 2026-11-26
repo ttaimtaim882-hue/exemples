@@ -1,1 +1,73 @@
-{}
+{
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      },
+      "sniffing": {
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ],
+        "enabled": true,
+        "routeOnly": false
+      },
+      "tag": "socks"
+    },
+    {
+      "listen": "127.0.0.1",
+      "port": 10809,
+      "protocol": "http",
+      "sniffing": {
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ],
+        "enabled": true,
+        "routeOnly": false
+      },
+      "tag": "http"
+    }
+  ],
+  "log": {
+    "access": "/private/var/mobile/Containers/Shared/AppGroup/5D4BDA23-16E0-4EE3-BEDC-B5C414F4CF26/Library/Application Support/Xray/logs/access.log",
+    "dnsLog": true,
+    "loglevel": "Warning"
+  },
+  "outbounds": [
+    {
+      "protocol": "blackhole",
+      "tag": "proxy"
+    },
+    {
+      "protocol": "blackhole",
+      "tag": "direct"
+    }
+  ],
+  "remarks": "POWER UP • 488",
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "network": "tcp",
+        "outboundTag": "proxy",
+        "port": "39000-39999"
+      },
+      {
+        "network": "udp",
+        "outboundTag": "proxy",
+        "port": "10000-10999"
+      },
+      {
+        "network": "tcp,udp",
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}
